@@ -1,0 +1,61 @@
+<?php
+declare(strict_types=1);
+
+return [
+    'app' => [
+        'name' => 'TSU-SAMS',
+        'full_name' => 'Taraba State University Smart Attendance Management System',
+        'institution' => 'Taraba State University, Jalingo',
+        'env' => 'production',
+        'debug' => false,
+        'url' => '',
+        'timezone' => 'Africa/Lagos',
+        'key' => 'tsu-sams-change-this-key-in-production-32b',
+        'session' => 'TSUSAMSSESSID',
+        'version' => '1.0.0',
+        'academic_session' => '2024/2025',
+        'semester' => 'Harmattan',
+        'exam_threshold' => 75,
+    ],
+    'db' => [
+        'driver' => 'sqlite',
+        'host' => '127.0.0.1',
+        'port' => 3306,
+        'name' => 'tsu_sams',
+        'user' => 'root',
+        'pass' => '',
+        'charset' => 'utf8mb4',
+        'sqlite_path' => __DIR__ . '/storage/tsu_sams.sqlite',
+    ],
+    'security' => [
+        'csrf_key' => '_csrf',
+        'rate_limit_attempts' => 8,
+        'rate_limit_window' => 900,
+        'session_lifetime' => 7200,
+        'face_match_threshold' => 0.50,
+        'password_algo' => PASSWORD_BCRYPT,
+        'password_cost' => 12,
+        'allowed_image_types' => ['image/jpeg', 'image/png', 'image/webp'],
+        'max_upload_bytes' => 3 * 1024 * 1024,
+    ],
+    'face' => [
+        'url' => 'http://127.0.0.1:9000',
+        'timeout' => 60,
+        'model' => 'buffalo_l',
+        'embedding_dim' => 512,
+    ],
+    'geo' => [
+        'default_radius' => 100,
+        'campus_lat' => 8.8932,
+        'campus_lng' => 11.3596,
+    ],
+    'paths' => [
+        'root' => __DIR__,
+        'public' => __DIR__ . '/public',
+        'storage' => __DIR__ . '/storage',
+        'logs' => __DIR__ . '/storage/logs',
+        'faces' => __DIR__ . '/storage/faces',
+        'uploads' => __DIR__ . '/public/uploads',
+        'views' => __DIR__ . '/views',
+    ],
+];

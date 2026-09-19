@@ -1,0 +1,12 @@
+/storage/*.sqlite
+/storage/*.sqlite-journal
+/storage/logs/*
+/public/uploads/passports/*
+/public/uploads/faces/*
+/public/uploads/imports/*
+!/public/uploads/**/.gitkeep
+!/storage/logs/.gitkeep
+/python/venv/
+/python/models/
+/python/data/
+/python/__pycache__/
