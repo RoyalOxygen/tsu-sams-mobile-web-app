@@ -24,7 +24,7 @@
   <a class="btn btn-outline mb-2" href="<?= e(base_url('login?role=student')) ?>"><i class="bi bi-box-arrow-in-right"></i> Student password login</a>
 
   <div class="d-flex justify-content-center gap-3 mt-3 small">
-    <a href="<?= e(base_url('login?role=lecturer')) ?>"><i class="bi bi-mortarboard"></i> Faculty portal</a>
+    <a href="<?= e(base_url('login?role=lecturer')) ?>"><i class="bi bi-mortarboard"></i> Lecturer</a>
     <span class="text-muted">•</span>
     <a href="<?= e(base_url('login?role=admin')) ?>"><i class="bi bi-gear"></i> Admin</a>
     <span class="text-muted">•</span>

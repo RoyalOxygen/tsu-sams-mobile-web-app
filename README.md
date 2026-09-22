@@ -14,7 +14,13 @@ PHP 8, PDO, Bootstrap 5.3, vanilla JavaScript, InsightFace ArcFace (FastAPI). Fa
 
 ```bash
 php -S 0.0.0.0:8080 -t public public/index.php
-cd python && SAMS_PORT=9000 ./start.sh
+
+```bash
+cd python
+python3 -m venv venv
+source venv/bin/activate or .\venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+uvicorn main:app --host 0.0.0.0 --port 8000
 ```
 
 Open the site, then sign in as `admin` / `Admin@TSU2025`.
