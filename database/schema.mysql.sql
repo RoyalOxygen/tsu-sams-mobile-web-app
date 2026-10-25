@@ -180,7 +180,11 @@ CREATE TABLE face_profiles (
 CREATE TABLE payments (
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     student_id INT UNSIGNED NOT NULL,
+<<<<<<< HEAD
     type ENUM('enrollment','face_update','exam') NOT NULL,
+=======
+    type ENUM('enrollment','face_update') NOT NULL,
+>>>>>>> 4abe473752bc82d9cc2e6c6142ed4a363d9a0bcf
     amount DECIMAL(12,2) NOT NULL,
     currency CHAR(3) NOT NULL DEFAULT 'NGN',
     status ENUM('pending','paid','failed','refunded') NOT NULL DEFAULT 'pending',

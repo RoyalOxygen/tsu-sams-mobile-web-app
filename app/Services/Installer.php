@@ -109,16 +109,21 @@ final class Installer
         }
         $legacy = Database::one('SELECT setting_value FROM settings WHERE setting_key = ?', ['payments_enabled']);
         $fallback = (is_array($legacy) && ($legacy['setting_value'] ?? '0') === '1') ? '1' : '0';
+<<<<<<< HEAD
         foreach ([
             'enrollment_fee_enabled' => $fallback,
             'face_update_fee_enabled' => $fallback,
             'exam_fee_enabled' => '0',
         ] as $key => $value) {
+=======
+        foreach (['enrollment_fee_enabled' => $fallback, 'face_update_fee_enabled' => $fallback] as $key => $value) {
+>>>>>>> 4abe473752bc82d9cc2e6c6142ed4a363d9a0bcf
             $row = Database::one('SELECT id FROM settings WHERE setting_key = ?', [$key]);
             if (!$row) {
                 Database::insert('settings', ['setting_key' => $key, 'setting_value' => $value, 'updated_at' => now()]);
             }
         }
+<<<<<<< HEAD
         $examFee = Database::one('SELECT id FROM settings WHERE setting_key = ?', ['exam_fee']);
         if (!$examFee) {
             Database::insert('settings', ['setting_key' => 'exam_fee', 'setting_value' => '0', 'updated_at' => now()]);
@@ -137,5 +142,7 @@ final class Installer
             );
         } catch (\Throwable $e) {
         }
+=======
+>>>>>>> 4abe473752bc82d9cc2e6c6142ed4a363d9a0bcf
     }
 }

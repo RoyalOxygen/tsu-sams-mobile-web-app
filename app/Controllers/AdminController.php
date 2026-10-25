@@ -586,10 +586,15 @@ final class AdminController
             'title' => 'Payment Settings',
             'enrollment_enabled' => setting('enrollment_fee_enabled', setting('payments_enabled', '0')),
             'face_update_enabled' => setting('face_update_fee_enabled', setting('payments_enabled', '0')),
+<<<<<<< HEAD
             'exam_enabled' => setting('exam_fee_enabled', '0'),
             'enrollment_fee' => setting('enrollment_fee', '0'),
             'face_update_fee' => setting('face_update_fee', '0'),
             'exam_fee' => setting('exam_fee', '0'),
+=======
+            'enrollment_fee' => setting('enrollment_fee', '0'),
+            'face_update_fee' => setting('face_update_fee', '0'),
+>>>>>>> 4abe473752bc82d9cc2e6c6142ed4a363d9a0bcf
             'nav' => 'payments',
         ], 'layouts/admin');
     }
@@ -599,18 +604,28 @@ final class AdminController
         $this->requireAdmin();
         $enrollOn = isset($_POST['enrollment_fee_enabled']) ? '1' : '0';
         $faceOn = isset($_POST['face_update_fee_enabled']) ? '1' : '0';
+<<<<<<< HEAD
         $examOn = isset($_POST['exam_fee_enabled']) ? '1' : '0';
         if ($enrollOn === '0' && $faceOn === '0' && $examOn === '0' && isset($_POST['payments_enabled'])) {
+=======
+        if ($enrollOn === '0' && $faceOn === '0' && isset($_POST['payments_enabled'])) {
+>>>>>>> 4abe473752bc82d9cc2e6c6142ed4a363d9a0bcf
             $enrollOn = '1';
             $faceOn = '1';
         }
         $this->upsertSetting('enrollment_fee_enabled', $enrollOn);
         $this->upsertSetting('face_update_fee_enabled', $faceOn);
+<<<<<<< HEAD
         $this->upsertSetting('exam_fee_enabled', $examOn);
         $this->upsertSetting('payments_enabled', ($enrollOn === '1' || $faceOn === '1' || $examOn === '1') ? '1' : '0');
         $this->upsertSetting('enrollment_fee', (string)max(0, (float)($_POST['enrollment_fee'] ?? 0)));
         $this->upsertSetting('face_update_fee', (string)max(0, (float)($_POST['face_update_fee'] ?? 0)));
         $this->upsertSetting('exam_fee', (string)max(0, (float)($_POST['exam_fee'] ?? 0)));
+=======
+        $this->upsertSetting('payments_enabled', ($enrollOn === '1' || $faceOn === '1') ? '1' : '0');
+        $this->upsertSetting('enrollment_fee', (string)max(0, (float)($_POST['enrollment_fee'] ?? 0)));
+        $this->upsertSetting('face_update_fee', (string)max(0, (float)($_POST['face_update_fee'] ?? 0)));
+>>>>>>> 4abe473752bc82d9cc2e6c6142ed4a363d9a0bcf
         setting_all(true);
         Audit::log('settings.payments', 'settings', null);
         flash('success', 'Payment settings saved.');
@@ -638,11 +653,17 @@ final class AdminController
             'default_radius' => (string)max(10, (int)($_POST['default_radius'] ?? 100)),
             'enrollment_fee_enabled' => isset($_POST['enrollment_fee_enabled']) ? '1' : '0',
             'face_update_fee_enabled' => isset($_POST['face_update_fee_enabled']) ? '1' : '0',
+<<<<<<< HEAD
             'exam_fee_enabled' => isset($_POST['exam_fee_enabled']) ? '1' : '0',
             'payments_enabled' => (isset($_POST['enrollment_fee_enabled']) || isset($_POST['face_update_fee_enabled']) || isset($_POST['exam_fee_enabled'])) ? '1' : '0',
             'enrollment_fee' => (string)max(0, (float)($_POST['enrollment_fee'] ?? 0)),
             'face_update_fee' => (string)max(0, (float)($_POST['face_update_fee'] ?? 0)),
             'exam_fee' => (string)max(0, (float)($_POST['exam_fee'] ?? 0)),
+=======
+            'payments_enabled' => (isset($_POST['enrollment_fee_enabled']) || isset($_POST['face_update_fee_enabled'])) ? '1' : '0',
+            'enrollment_fee' => (string)max(0, (float)($_POST['enrollment_fee'] ?? 0)),
+            'face_update_fee' => (string)max(0, (float)($_POST['face_update_fee'] ?? 0)),
+>>>>>>> 4abe473752bc82d9cc2e6c6142ed4a363d9a0bcf
         ];
         if ($known['institution'] === '' || $known['academic_session'] === '') {
             flash('error', 'Institution name and academic session are required.');

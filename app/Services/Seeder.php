@@ -269,10 +269,15 @@ final class Seeder
             'payments_enabled' => '0',
             'enrollment_fee_enabled' => '0',
             'face_update_fee_enabled' => '0',
+<<<<<<< HEAD
             'exam_fee_enabled' => '0',
             'enrollment_fee' => '2500',
             'face_update_fee' => '1500',
             'exam_fee' => '0',
+=======
+            'enrollment_fee' => '2500',
+            'face_update_fee' => '1500',
+>>>>>>> 4abe473752bc82d9cc2e6c6142ed4a363d9a0bcf
             'default_radius' => '100',
             'academic_session' => $session,
             'semester' => $semester,
