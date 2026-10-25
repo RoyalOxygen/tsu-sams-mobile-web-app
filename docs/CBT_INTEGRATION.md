@@ -71,8 +71,10 @@ GET is token-auth only. CSRF is not applied.
 On the CBT online hub (not an offline hall):
 
 1. Admin > Settings > **Attendance (SAMS) sync**
-2. SAMS base URL with no trailing slash, for example `http://127.0.0.1:8080`
-3. The same sync token
+2. SAMS base URL with no trailing slash. Use the URL that serves the PHP app, for example:
+   - Virtual host / PHP built-in server: `http://127.0.0.1:8080`
+   - XAMPP project folder: `http://localhost/tsu-sams` or `http://localhost/tsu-sams/public`
+3. The same sync token. CBT must be able to open `{SAMS base URL}/api/cbt-sync/students?token=...` and receive JSON (`{"ok":true,...}`), not an HTML page.
 4. Enable pull
 5. Face API URL: InsightFace FastAPI (`buffalo_l`), usually `http://127.0.0.1:9000`
 6. Enable **student face login** after templates have been imported

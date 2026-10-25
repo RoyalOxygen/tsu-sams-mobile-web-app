@@ -31,6 +31,12 @@ final class Router
             $uri = substr($uri, strlen($scriptDir)) ?: '/';
         }
         $path = $this->normalize($uri);
+        if (str_starts_with($path, '/public/')) {
+            $path = $this->normalize(substr($path, 7));
+        }
+        if (str_starts_with($path, '/index.php/')) {
+            $path = $this->normalize(substr($path, 10));
+        }
 
         $handler = $this->routes[$method][$path] ?? null;
         $params = [];
@@ -48,7 +54,18 @@ final class Router
                 }
             }
         }
+        if ($handler === null && str_contains($path, '/api/')) {
+            foreach ($this->routes[$method] ?? [] as $pattern => $h) {
+                if ($pattern !== '/' && str_starts_with($pattern, '/api/') && str_ends_with($path, $pattern)) {
+                    $handler = $h;
+                    break;
+                }
+            }
+        }
         if ($handler === null) {
+            if (str_starts_with($path, '/api/') || str_contains($path, '/api/')) {
+                json_response(['ok' => false, 'message' => 'Not found.'], 404);
+            }
             http_response_code(404);
             View::render('home/404', ['title' => 'Not found'], 'layouts/guest');
             return;

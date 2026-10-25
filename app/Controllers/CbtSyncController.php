@@ -10,6 +10,16 @@ final class CbtSyncController
 {
     public function students(): void
     {
+        try {
+            $this->studentsUnsafe();
+        } catch (\Throwable $e) {
+            error_log('[TSU-SAMS] CBT sync: ' . $e->getMessage() . ' @ ' . $e->getFile() . ':' . $e->getLine());
+            json_response(['ok' => false, 'message' => 'SAMS export failed.'], 500);
+        }
+    }
+
+    private function studentsUnsafe(): void
+    {
         $this->requireToken();
 
         $since = trim((string)($_GET['since'] ?? ''));
@@ -214,6 +224,11 @@ final class CbtSyncController
         if (!is_array($data) || count($data) < 128) {
             return null;
         }
-        return array_map('floatval', $data);
+        $out = [];
+        foreach ($data as $value) {
+            $f = (float)$value;
+            $out[] = is_finite($f) ? $f : 0.0;
+        }
+        return $out;
     }
 }

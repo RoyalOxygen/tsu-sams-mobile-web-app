@@ -61,7 +61,12 @@ function json_response(array $data, int $code = 200): never
 {
     http_response_code($code);
     header('Content-Type: application/json; charset=utf-8');
-    echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    $json = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE | JSON_PARTIAL_OUTPUT_ON_ERROR);
+    if ($json === false) {
+        http_response_code(500);
+        $json = '{"ok":false,"message":"Failed to encode SAMS payload."}';
+    }
+    echo $json;
     exit;
 }
 

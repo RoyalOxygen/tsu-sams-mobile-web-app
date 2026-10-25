@@ -15,8 +15,21 @@ if (!empty($config['paths']['logs']) && is_dir($config['paths']['logs'])) {
 if (PHP_SAPI !== 'cli') {
     set_exception_handler(static function (\Throwable $e) use ($debug): void {
         error_log('[TSU-SAMS] ' . $e->getMessage() . ' @ ' . $e->getFile() . ':' . $e->getLine());
+        $uri = (string)($_SERVER['REQUEST_URI'] ?? '');
+        $wantsJson = str_contains($uri, '/api/')
+            || str_contains((string)($_SERVER['HTTP_ACCEPT'] ?? ''), 'application/json');
         if (!headers_sent()) {
             http_response_code(500);
+            if ($wantsJson) {
+                header('Content-Type: application/json; charset=utf-8');
+            }
+        }
+        if ($wantsJson) {
+            echo json_encode([
+                'ok' => false,
+                'message' => $debug ? $e->getMessage() : 'SAMS server error.',
+            ], JSON_UNESCAPED_UNICODE);
+            return;
         }
         if ($debug) {
             echo '<pre>' . htmlspecialchars((string)$e, ENT_QUOTES, 'UTF-8') . '</pre>';
