@@ -449,20 +449,7 @@ final class StudentController
 
     private function statsFor(array $s): array
     {
-        $present = Database::one(
-            'SELECT COUNT(*) AS c FROM attendance_records WHERE student_id = ?',
-            [$s['id']]
-        );
-        $total = Database::one(
-            "SELECT COUNT(*) AS c FROM attendance_sessions sess
-             JOIN course_registrations r ON r.course_id = sess.course_id
-             WHERE r.student_id = ? AND sess.status IN ('open','closed')",
-            [$s['id']]
-        );
-        $p = (int)($present['c'] ?? 0);
-        $t = max(1, (int)($total['c'] ?? 0));
-        $pct = round(($p / $t) * 100, 1);
-        return ['present' => $p, 'total' => (int)($total['c'] ?? 0), 'percent' => $pct];
+        return student_attendance_stats((int)$s['id']);
     }
 
     /* ---------------- Enrollment ---------------- */

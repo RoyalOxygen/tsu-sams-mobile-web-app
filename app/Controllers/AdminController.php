@@ -687,6 +687,16 @@ final class AdminController
         redirect('admin/settings');
     }
 
+    public function cbtTokenRegenerate(): void
+    {
+        $this->requireAdmin();
+        $token = bin2hex(random_bytes(32));
+        $this->upsertSetting('cbt_sync_token', $token);
+        setting_all(true);
+        Audit::log('settings.cbt_token', 'settings', null);
+        json_response(['ok' => true, 'token' => $token]);
+    }
+
     public function transactions(): void
     {
         $this->requireAdmin();

@@ -1,6 +1,6 @@
 # CBT hub integration
 
-TSU-SAMS exports enrolled students, passport photos, and decrypted ArcFace templates so [CBT Pro](https://github.com/RoyalOxygen/CBT-SYSTEM) can pull them into the online exam hub.
+TSU-SAMS exports enrolled students, passport photos, decrypted ArcFace templates, and overall attendance rate so [CBT Pro](https://github.com/RoyalOxygen/CBT-SYSTEM) can pull them into the online exam hub.
 
 ## What SAMS exposes
 
@@ -21,6 +21,7 @@ JSON:
   "total": 1,
   "limit": 50,
   "offset": 0,
+  "exam_threshold": 75,
   "students": [
     {
       "sams_student_id": 1,
@@ -38,6 +39,11 @@ JSON:
       "status": "active",
       "enrollment_status": "active",
       "updated_at": "2025-10-25 12:00:00",
+      "attendance_percent": 82.5,
+      "attendance_present": 33,
+      "attendance_total": 40,
+      "exam_threshold": 75,
+      "exam_eligible": true,
       "photo_b64": "...",
       "photo_mime": "image/jpeg",
       "face_descriptor": [0.1, 0.1]
@@ -48,19 +54,17 @@ JSON:
 
 `face_descriptor` is the 512-d ArcFace vector from `face_profiles.descriptor_enc`, decrypted with `app.key`. Photos are base64 of `public/uploads/passports/...`.
 
+Attendance rate is present records divided by open+closed sessions for registered courses. `exam_eligible` is true when `attendance_percent >= exam_threshold` (Admin > Settings, default 75).
+
 GET is token-auth only. CSRF is not applied.
 
 ## SAMS setup
 
 1. Sign in as administrator.
 2. Open **Admin > Settings**.
-3. Set **CBT sync token** to a long random secret. Example:
-
-```bash
-php -r "echo bin2hex(random_bytes(32)), PHP_EOL;"
-```
-
-4. Save. Keep the token private; anyone with it can download student photos and face templates.
+3. Under **CBT export**, click **Regenerate** to create a 64-character hex token, then **Copy**.
+4. Regenerating invalidates the previous token. Paste the new value into the CBT hub before the next pull.
+5. Keep the token private; anyone with it can download student photos and face templates.
 
 ## CBT hub setup
 
@@ -79,7 +83,9 @@ php bin/sams-sync.php
 php bin/sams-sync.php --full
 ```
 
-Hub-only. Offline halls receive students, photos, and face profiles through CBT hub/leaf sync.
+Hub-only. Offline halls receive students, photos, face profiles, and attendance fields through CBT hub/leaf sync.
+
+After a successful pull, CBT stores `attendance_percent`, `attendance_present`, `attendance_total`, `exam_threshold`, and `exam_eligible` on each student. Admin > Students shows the rate and eligibility badge. The student dashboard shows overall attendance against the exam threshold.
 
 ## Exam capture
 

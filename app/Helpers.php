@@ -77,6 +77,36 @@ function setting(string $key, ?string $default = null): string
 }
 
 /**
+ * Overall attendance rate used for the exam threshold (present / open+closed sessions).
+ *
+ * @return array{present:int,total:int,percent:float,threshold:int,eligible:bool}
+ */
+function student_attendance_stats(int $studentId): array
+{
+    $present = App\Database::one(
+        'SELECT COUNT(*) AS c FROM attendance_records WHERE student_id = ?',
+        [$studentId]
+    );
+    $total = App\Database::one(
+        "SELECT COUNT(*) AS c FROM attendance_sessions sess
+         JOIN course_registrations r ON r.course_id = sess.course_id
+         WHERE r.student_id = ? AND sess.status IN ('open','closed')",
+        [$studentId]
+    );
+    $p = (int)($present['c'] ?? 0);
+    $t = (int)($total['c'] ?? 0);
+    $pct = $t > 0 ? round(($p / $t) * 100, 1) : 0.0;
+    $threshold = (int)setting('exam_threshold', '75');
+    return [
+        'present' => $p,
+        'total' => $t,
+        'percent' => $pct,
+        'threshold' => $threshold,
+        'eligible' => $pct >= $threshold,
+    ];
+}
+
+/**
  * @return array<string,string>
  */
 function setting_all(bool $reload = false): array

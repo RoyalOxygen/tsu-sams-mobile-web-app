@@ -104,6 +104,7 @@ $router->get('/admin/profile', [AdminController::class, 'profile']);
 $router->post('/admin/profile', [AdminController::class, 'profileSave']);
 $router->get('/admin/settings', [AdminController::class, 'settings']);
 $router->post('/admin/settings', [AdminController::class, 'settingsSave']);
+$router->post('/admin/settings/cbt-token', [AdminController::class, 'cbtTokenRegenerate']);
 $router->get('/admin/venues', [AdminController::class, 'venues']);
 $router->get('/admin/venues/create', [AdminController::class, 'venueForm']);
 $router->get('/admin/venues/{id}/edit', [AdminController::class, 'venueForm']);

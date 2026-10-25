@@ -72,9 +72,14 @@ $extras = array_diff_key($v, array_flip($known));
 
   <div class="card">
     <h2 class="h6">CBT export</h2>
-    <p class="muted small">Shared secret for GET /api/cbt-sync/students. The CBT hub must use the same token under Admin &gt; Settings &gt; Attendance (SAMS) sync.</p>
+    <p class="muted small">Copy this token into the CBT hub under Admin &gt; Settings &gt; Attendance (SAMS) sync. Regenerating invalidates the previous token. Student overall attendance rate and exam eligibility are included in each pull.</p>
     <label class="form-label">CBT sync token</label>
-    <input class="form-control font-tabular" name="cbt_sync_token" value="<?= e($v['cbt_sync_token'] ?? '') ?>" autocomplete="off" placeholder="Long random secret">
+    <div class="input-group">
+      <input class="form-control font-tabular" id="cbtSyncToken" name="cbt_sync_token" value="<?= e($v['cbt_sync_token'] ?? '') ?>" autocomplete="off" readonly placeholder="Generate a token">
+      <button class="btn btn-outline" type="button" id="cbtCopyToken" <?= empty($v['cbt_sync_token']) ? 'disabled' : '' ?>>Copy</button>
+      <button class="btn btn-primary" type="button" id="cbtRegenToken">Regenerate</button>
+    </div>
+    <p class="small muted mt-2 mb-0" id="cbtTokenHint"></p>
   </div>
 
   <div class="card">
@@ -108,3 +113,47 @@ $extras = array_diff_key($v, array_flip($known));
 
   <button class="btn btn-primary" type="submit">Save all settings</button>
 </form>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const input = document.getElementById('cbtSyncToken');
+  const copyBtn = document.getElementById('cbtCopyToken');
+  const regenBtn = document.getElementById('cbtRegenToken');
+  const hint = document.getElementById('cbtTokenHint');
+  if (!input || !copyBtn || !regenBtn) {
+    return;
+  }
+  function setHint(text) {
+    if (hint) {
+      hint.textContent = text;
+    }
+  }
+  copyBtn.addEventListener('click', async function () {
+    if (!input.value) {
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(input.value);
+      setHint('Token copied. Paste it into the CBT hub SAMS sync token field.');
+    } catch (err) {
+      input.select();
+      document.execCommand('copy');
+      setHint('Token copied. Paste it into the CBT hub SAMS sync token field.');
+    }
+  });
+  regenBtn.addEventListener('click', async function () {
+    if (input.value && !confirm('Regenerate the CBT sync token? The previous token will stop working until you paste the new one into CBT.')) {
+      return;
+    }
+    regenBtn.disabled = true;
+    const json = await TSU.postForm(<?= json_encode(base_url('admin/settings/cbt-token')) ?>, {});
+    regenBtn.disabled = false;
+    if (!json.ok || !json.token) {
+      setHint(json.message || 'Could not regenerate the token.');
+      return;
+    }
+    input.value = json.token;
+    copyBtn.disabled = false;
+    setHint('New token generated. Copy it to the CBT hub now.');
+  });
+});
+</script>

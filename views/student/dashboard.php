@@ -34,8 +34,8 @@
     <div>
       <div class="small muted">Overall attendance rate</div>
       <div class="h3 font-tabular mb-1" style="color:#0f2942"><?= e((string)$stats['percent']) ?>%</div>
-      <span class="badge <?= $stats['percent'] >= 75 ? 'badge-success' : 'badge-danger' ?>">
-        <?= $stats['percent'] >= 75 ? 'Exceeds 75% exam threshold' : 'Below exam threshold' ?>
+      <span class="badge <?= !empty($stats['eligible']) ? 'badge-success' : 'badge-danger' ?>">
+        <?= !empty($stats['eligible']) ? 'Exceeds ' . (int)($stats['threshold'] ?? 75) . '% exam threshold' : 'Below exam threshold' ?>
       </span>
     </div>
     <div class="text-end">
