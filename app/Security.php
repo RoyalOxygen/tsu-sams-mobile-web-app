@@ -140,15 +140,9 @@ final class Security
         if (($file['error'] ?? 0) !== UPLOAD_ERR_OK) {
             return 'Upload failed.';
         }
-<<<<<<< HEAD
-        $max = (int)(self::$config['security']['max_upload_bytes'] ?? 512000);
-        if (($file['size'] ?? 0) > $max) {
-            return 'File exceeds 500KB limit.';
-=======
         $max = (int)(self::$config['security']['max_upload_bytes'] ?? 3145728);
         if (($file['size'] ?? 0) > $max) {
             return 'File exceeds 3MB limit.';
->>>>>>> 4abe473752bc82d9cc2e6c6142ed4a363d9a0bcf
         }
         $finfo = new \finfo(FILEINFO_MIME_TYPE);
         $mime = $finfo->file($file['tmp_name']);

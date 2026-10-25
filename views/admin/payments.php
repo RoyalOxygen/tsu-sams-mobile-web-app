@@ -20,7 +20,6 @@
         <input class="form-control" type="number" step="0.01" min="0" name="face_update_fee" value="<?= e($face_update_fee) ?>">
       </div>
     </div>
-<<<<<<< HEAD
     <div class="grid-2 mb-3">
       <div>
         <div class="form-check form-switch mb-2">
@@ -31,8 +30,6 @@
         <input class="form-control" type="number" step="0.01" min="0" name="exam_fee" value="<?= e($exam_fee ?? '0') ?>">
       </div>
     </div>
-=======
->>>>>>> 4abe473752bc82d9cc2e6c6142ed4a363d9a0bcf
     <button class="btn btn-primary" type="submit">Save settings</button>
   </form>
   <p class="mt-3 mb-0"><a href="<?= e(base_url('admin/transactions')) ?>">View transactions</a></p>

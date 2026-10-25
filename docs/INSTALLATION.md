@@ -107,6 +107,14 @@ Docker alternative: build `python/Dockerfile` and set `face.url` to the containe
 5. Server records attendance only if face matches, course is registered, session is open, and coordinates are inside the venue radius
 6. Student is signed out automatically
 
+## CBT Pro (exam hub)
+
+SAMS can export students, passports, and ArcFace templates to the CBT hub.
+
+1. Admin > Settings > set **CBT sync token**
+2. On the CBT hub, Admin > Settings > Attendance (SAMS) sync: SAMS URL, same token, enable pull
+3. Details: `docs/CBT_INTEGRATION.md`
+
 ## Permissions
 
 Uploads and the SQLite file must be writable by the web server user.

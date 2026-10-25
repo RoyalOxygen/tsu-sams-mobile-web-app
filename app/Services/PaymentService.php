@@ -10,11 +10,7 @@ final class PaymentService
 {
     public static function paymentsEnabled(): bool
     {
-<<<<<<< HEAD
         return self::enrollmentFeeEnabled() || self::faceUpdateFeeEnabled() || self::examFeeEnabled();
-=======
-        return self::enrollmentFeeEnabled() || self::faceUpdateFeeEnabled();
->>>>>>> 4abe473752bc82d9cc2e6c6142ed4a363d9a0bcf
     }
 
     public static function enrollmentFeeEnabled(): bool
@@ -35,14 +31,11 @@ final class PaymentService
         return $v === '1';
     }
 
-<<<<<<< HEAD
     public static function examFeeEnabled(): bool
     {
         return setting('exam_fee_enabled', '0') === '1';
     }
 
-=======
->>>>>>> 4abe473752bc82d9cc2e6c6142ed4a363d9a0bcf
     public static function enrollmentFee(): float
     {
         return (float)setting('enrollment_fee', '0');
@@ -53,14 +46,11 @@ final class PaymentService
         return (float)setting('face_update_fee', '0');
     }
 
-<<<<<<< HEAD
     public static function examFee(): float
     {
         return (float)setting('exam_fee', '0');
     }
 
-=======
->>>>>>> 4abe473752bc82d9cc2e6c6142ed4a363d9a0bcf
     public static function enrollmentRequired(): bool
     {
         return self::enrollmentFeeEnabled() && self::enrollmentFee() > 0;
@@ -71,14 +61,11 @@ final class PaymentService
         return self::faceUpdateFeeEnabled() && self::faceUpdateFee() > 0;
     }
 
-<<<<<<< HEAD
     public static function examRequired(): bool
     {
         return self::examFeeEnabled() && self::examFee() > 0;
     }
 
-=======
->>>>>>> 4abe473752bc82d9cc2e6c6142ed4a363d9a0bcf
     public static function create(int $studentId, string $type, float $amount): array
     {
         $ref = 'TSU' . date('ymd') . strtoupper(bin2hex(random_bytes(4)));
@@ -151,7 +138,6 @@ final class PaymentService
         );
         return $row !== null;
     }
-<<<<<<< HEAD
 
     public static function hasPaidExam(int $studentId): bool
     {
@@ -164,6 +150,4 @@ final class PaymentService
         );
         return $row !== null;
     }
-=======
->>>>>>> 4abe473752bc82d9cc2e6c6142ed4a363d9a0bcf
 }

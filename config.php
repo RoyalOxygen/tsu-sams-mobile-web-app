@@ -36,11 +36,7 @@ return [
         'password_algo' => PASSWORD_BCRYPT,
         'password_cost' => 12,
         'allowed_image_types' => ['image/jpeg', 'image/png', 'image/webp'],
-<<<<<<< HEAD
-        'max_upload_bytes' => 500 * 1024,
-=======
         'max_upload_bytes' => 3 * 1024 * 1024,
->>>>>>> 4abe473752bc82d9cc2e6c6142ed4a363d9a0bcf
     ],
     'face' => [
         'url' => 'http://127.0.0.1:9000',
@@ -53,15 +49,12 @@ return [
         'campus_lat' => 8.8932,
         'campus_lng' => 11.3596,
     ],
-<<<<<<< HEAD
     'cms' => [
         'search_url' => 'https://cms.tsuniversity.edu.ng/verify/search.php',
         'lookup_url' => 'https://cms.tsuniversity.edu.ng/verify/p-search.php',
         'base_url' => 'https://cms.tsuniversity.edu.ng',
         'timeout' => 25,
     ],
-=======
->>>>>>> 4abe473752bc82d9cc2e6c6142ed4a363d9a0bcf
     'paths' => [
         'root' => __DIR__,
         'public' => __DIR__ . '/public',

@@ -17,10 +17,8 @@ use App\Controllers\AuthController;
 use App\Controllers\StudentController;
 use App\Controllers\LecturerController;
 use App\Controllers\AdminController;
-<<<<<<< HEAD
+use App\Controllers\CbtSyncController;
 use App\ExamRoutes;
-=======
->>>>>>> 4abe473752bc82d9cc2e6c6142ed4a363d9a0bcf
 use App\Services\Installer;
 
 Installer::ensure();
@@ -30,11 +28,10 @@ $router = new Router();
 $router->get('/', [HomeController::class, 'index']);
 $router->get('/help', [HomeController::class, 'help']);
 
-<<<<<<< HEAD
 ExamRoutes::register($router, '/exam-capture');
 
-=======
->>>>>>> 4abe473752bc82d9cc2e6c6142ed4a363d9a0bcf
+$router->get('/api/cbt-sync/students', [CbtSyncController::class, 'students']);
+
 $router->get('/login', [AuthController::class, 'loginForm']);
 $router->post('/login', [AuthController::class, 'login']);
 $router->get('/logout', [AuthController::class, 'logout']);

@@ -37,7 +37,6 @@ function base_url(string $path = ''): string
     return ($dir === '' ? '' : $dir) . '/' . $path;
 }
 
-<<<<<<< HEAD
 function exam_capture_portal(): bool
 {
     return defined('EXAM_CAPTURE') && EXAM_CAPTURE;
@@ -52,8 +51,6 @@ function exam_path(string $path = ''): string
     return $path === '' ? 'exam-capture' : 'exam-capture/' . $path;
 }
 
-=======
->>>>>>> 4abe473752bc82d9cc2e6c6142ed4a363d9a0bcf
 function redirect(string $path): never
 {
     header('Location: ' . base_url(ltrim($path, '/')));

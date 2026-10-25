@@ -143,11 +143,9 @@ INSERT OR IGNORE INTO settings (id, setting_key, setting_value) VALUES
     (3, 'face_update_fee',  '1500'),
     (9, 'enrollment_fee_enabled', '0'),
     (10, 'face_update_fee_enabled', '0'),
-<<<<<<< HEAD
     (11, 'exam_fee_enabled', '0'),
     (12, 'exam_fee', '0'),
-=======
->>>>>>> 4abe473752bc82d9cc2e6c6142ed4a363d9a0bcf
+    (13, 'cbt_sync_token', ''),
     (4, 'default_radius',   '100'),
     (5, 'academic_session', '2024/2025'),
     (6, 'semester',         'Harmattan'),

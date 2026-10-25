@@ -1,10 +1,6 @@
 <?php
 $v = $values;
-<<<<<<< HEAD
-$known = ['institution','academic_session','semester','exam_threshold','default_radius','payments_enabled','enrollment_fee_enabled','enrollment_fee','face_update_fee_enabled','face_update_fee','exam_fee_enabled','exam_fee'];
-=======
-$known = ['institution','academic_session','semester','exam_threshold','default_radius','payments_enabled','enrollment_fee_enabled','enrollment_fee','face_update_fee_enabled','face_update_fee'];
->>>>>>> 4abe473752bc82d9cc2e6c6142ed4a363d9a0bcf
+$known = ['institution','academic_session','semester','exam_threshold','default_radius','payments_enabled','enrollment_fee_enabled','enrollment_fee','face_update_fee_enabled','face_update_fee','exam_fee_enabled','exam_fee','cbt_sync_token'];
 $extras = array_diff_key($v, array_flip($known));
 ?>
 <h1 class="h4">System settings</h1>
@@ -62,7 +58,6 @@ $extras = array_diff_key($v, array_flip($known));
         <input class="form-control" type="number" step="0.01" min="0" name="face_update_fee" value="<?= e($v['face_update_fee'] ?? '0') ?>">
       </div>
     </div>
-<<<<<<< HEAD
     <div class="grid-2">
       <div>
         <div class="form-check form-switch mb-2">
@@ -73,8 +68,13 @@ $extras = array_diff_key($v, array_flip($known));
         <input class="form-control" type="number" step="0.01" min="0" name="exam_fee" value="<?= e($v['exam_fee'] ?? '0') ?>">
       </div>
     </div>
-=======
->>>>>>> 4abe473752bc82d9cc2e6c6142ed4a363d9a0bcf
+  </div>
+
+  <div class="card">
+    <h2 class="h6">CBT export</h2>
+    <p class="muted small">Shared secret for GET /api/cbt-sync/students. The CBT hub must use the same token under Admin &gt; Settings &gt; Attendance (SAMS) sync.</p>
+    <label class="form-label">CBT sync token</label>
+    <input class="form-control font-tabular" name="cbt_sync_token" value="<?= e($v['cbt_sync_token'] ?? '') ?>" autocomplete="off" placeholder="Long random secret">
   </div>
 
   <div class="card">

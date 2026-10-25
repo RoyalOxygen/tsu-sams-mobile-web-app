@@ -1,5 +1,7 @@
-/storage/*.sqlite
-/storage/*.sqlite-journal
+ /storage/*.sqlite
+ /storage/*.sqlite-journal
+ /storage/*.sqlite-shm
+ /storage/*.sqlite-wal
 /storage/logs/*
 /public/uploads/passports/*
 /public/uploads/faces/*

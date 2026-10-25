@@ -14,8 +14,8 @@ app/
   Audit.php
   Router.php
   View.php
-  Controllers/
-  Services/               Face, GPS, payments, installer
+  Controllers/            including CbtSyncController for CBT hub pull
+  Services/               Face, GPS, payments, installer, CMS
 database/
   schema.mysql.sql
   schema.sqlite.sql
@@ -36,3 +36,5 @@ Browser -> `public/index.php` -> Router -> Controller (RBAC) -> Service / PDO ->
 Attendance POST: CSRF -> session open -> course registration -> InsightFace ArcFace match (`python/` FastAPI on :9000) -> haversine geofence -> insert `attendance_records` -> auto logout.
 
 Face enrollment: camera JPEGs -> PHP `FaceService::enroll` -> `POST /enroll` -> encrypted 512-d template in `face_profiles` plus `python/data/enrollments.json`.
+
+CBT hub: `GET /api/cbt-sync/students` (token auth) decrypts templates and base64-encodes passports. See `docs/CBT_INTEGRATION.md`.
